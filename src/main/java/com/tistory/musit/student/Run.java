@@ -1,22 +1,25 @@
 package com.tistory.musit.student;
+import java.util.Scanner;
 
 public class Run {
 	
 	public static void main(String[] args) {
 	
-	StudentDataManagement stm = new StudentDataManagement();
+	//StudentData student = new StudentData();
+	Printer printer = new Printer();
+	Options options = new Options();
 	
-	StudentData student = new StudentData();
-	student.setId(21700071);
-	student.setName("Gibeom Kim");
-	student.setGender("M");
-	student.setMajor("Computer Science and Electronical Engeeniering");
-	student.setEmail("21700071@handong.edu");
+	Scanner USERINPUT = new Scanner(System.in);
+
+	printer.printOptions();
+	int option = USERINPUT.nextInt();
 	
-	stm.insertStudent(student);
-	
-	for(int i=0; i<20; i++)
-		System.out.println(stm.selectAllStudent());
+	if(option == 1) 
+		options.opt1SetStudent();
+	else if(option == 2)
+		options.opt2DeleteStudent();
+	else if(option == 3)
+		options.opt3UpdateStudentData();
 	
 	}
 }
