@@ -79,7 +79,7 @@ public class StudentDataManagement {
     
 //update
     public void updateStudent(StudentData student) {
-        String sql = "update STUDENTINFO set Name = ?, Gender = ? , Major = ?, Email = ? where ID = ?";
+        String sql = "update STUDENTINFO set Name = ?, Gender = ? , Major = ?, eMail = ? where ID = ?";
         PreparedStatement pstmt = null;
          
         try {
@@ -127,7 +127,7 @@ public class StudentDataManagement {
                 student.setName(rs.getString("Name"));
                 student.setGender(rs.getString("Gender"));
                 student.setMajor(rs.getString("Major"));
-                student.setEmail(rs.getString("E-Mail"));
+                student.setEmail(rs.getString("eMail"));
             }       
         } catch (SQLException e) {
             // TODO Auto-generated catch block
