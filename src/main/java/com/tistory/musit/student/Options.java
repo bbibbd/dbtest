@@ -64,8 +64,17 @@ public class Options {
 
 //option 4 - show one student data 	
 	public void opt4SelectOneSutdent() {
-		System.out.println("Input student name you want to search");
 		
+		System.out.println("Input student name you want to search");
+		String name = USERINPUT.nextLine();
+
+		try {
+		System.out.println("ID: "+ stm.selectOneStudent(name).getId()+ "\tName: " 
+				+ stm.selectOneStudent(name).getName()+"\t Gender: "+ stm.selectOneStudent(name).getGender()
+				+ "\nMajor: "+stm.selectOneStudent(name).getMajor()+ "\tE-Mail: "+stm.selectOneStudent(name).getEmail());
+		} catch(NullPointerException e) {
+			System.out.println("There is no student named " + name + e);
+		}
 		
 		
 	}

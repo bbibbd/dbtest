@@ -114,8 +114,7 @@ public class StudentDataManagement {
         String sql = "select * from STUDENTINFO where Name = ?";
         PreparedStatement pstmt = null;
         ResultSet rs = null;
-        StudentData student = null;    
-        
+        StudentData student = null;     
         try {
             pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, name);
