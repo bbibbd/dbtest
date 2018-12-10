@@ -110,14 +110,15 @@ public class StudentDataManagement {
          
     }
   
-    public StudentData selectOneStudent(int snum) {  
-        String sql = "select * from STUDENTINFO where id = ?";
+    public StudentData selectOneStudent(String name) {  
+        String sql = "select * from STUDENTINFO where Name = ?";
         PreparedStatement pstmt = null;
         ResultSet rs = null;
-        StudentData student = null;     
+        StudentData student = null;    
+        
         try {
             pstmt = conn.prepareStatement(sql);
-            pstmt.setInt(1, snum);
+            pstmt.setString(1, name);
              
             rs = pstmt.executeQuery();
              

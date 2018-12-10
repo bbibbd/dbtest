@@ -6,6 +6,7 @@ public class Run {
 	public static void main(String[] args) {
 	
 	//StudentData student = new StudentData();
+	//StudentDataManagement stm = new StudentDataManagement();
 	Printer printer = new Printer();
 	Options options = new Options();
 	
@@ -13,6 +14,7 @@ public class Run {
 
 	printer.printOptions();
 	int option = USERINPUT.nextInt();
+	USERINPUT.nextLine();
 	
 	if(option == 1) 
 		options.opt1SetStudent();
@@ -20,6 +22,9 @@ public class Run {
 		options.opt2DeleteStudent();
 	else if(option == 3)
 		options.opt3UpdateStudentData();
+	else if(option == 4) 
+		options.opt4SelectOneSutdent();
+		
 	
 	}
 }

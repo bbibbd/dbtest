@@ -61,5 +61,13 @@ public class Options {
 			System.out.println("Wrong student ID "+e);
 		}
 	}
+
+//option 4 - show one student data 	
+	public void opt4SelectOneSutdent() {
+		System.out.println("Input student name you want to search");
+		
+		
+		
+	}
 	
 }
