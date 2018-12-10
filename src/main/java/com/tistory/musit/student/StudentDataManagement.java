@@ -111,7 +111,7 @@ public class StudentDataManagement {
     }
   
     public StudentData selectOneStudent(int snum) {  
-        String sql = "select * from student where id = ?";
+        String sql = "select * from STUDENTINFO where id = ?";
         PreparedStatement pstmt = null;
         ResultSet rs = null;
         StudentData student = null;     
