@@ -10,7 +10,11 @@ import java.sql.Statement;
 public class StudentDataManagement {
 	private Connection conn;
 	Statement stmt = null;
-	private static String sorting = null;
+	
+	private String filterBy = "";
+	private String sorting = null;
+
+	
 	private String idorname = null;
 	
 	private final static String URL = "jdbc:mysql://104.155.151.3/test";
@@ -121,21 +125,21 @@ public class StudentDataManagement {
 	public StudentData selectOneStudent(String name) {  
 		String sql = "select * from STUDENTINFO where "+idorname+" = ?";
 		PreparedStatement pstmt = null;
-		ResultSet rs = null;
+		ResultSet result = null;
 		StudentData student = null;     
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, name);
 
-			rs = pstmt.executeQuery();
+			result = pstmt.executeQuery();
 
-			while(rs.next()) {
+			while(result.next()) {
 				student = new StudentData();
-				student.setId(rs.getInt("ID"));
-				student.setName(rs.getString("Name"));
-				student.setGender(rs.getString("Gender"));
-				student.setMajor(rs.getString("Major"));
-				student.setPaid(rs.getString("Paid"));
+				student.setId(result.getInt("ID"));
+				student.setName(result.getString("Name"));
+				student.setGender(result.getString("Gender"));
+				student.setMajor(result.getString("Major"));
+				student.setPaid(result.getString("Paid"));
 			}       
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -144,10 +148,35 @@ public class StudentDataManagement {
 		return student;  
 	}
 
-	public void selectALLStudents() {  
+	public void selectALLStudents() { 
+		String sql = "select * from STUDENTINFO "+filterBy+" order by "+sorting;
+		
 		try {
 			Statement stmt = conn.createStatement();
-			ResultSet result = stmt.executeQuery("select * from STUDENTINFO order by "+ sorting);
+			ResultSet result = stmt.executeQuery(sql);
+			int i = 1;
+			while(result.next()) {
+				System.out.println("#"+i +".  \nStudent ID:  "
+				+ result.getString("ID")+"\nName:  "
+				+ result.getString("Name")+"\nGender:  "
+				+ result.getString("Gender")+"\nFaculty Of "
+				+ result.getString("Major")+"\nPaid(O/X):  "
+				+ result.getString("Paid")+"\n");
+			
+				i++;
+			}
+
+		} catch(Exception e){
+			System.out.println("Error" + e);
+		}
+
+	} 
+	
+	public void filterStudents() {  
+	
+		try {
+			Statement stmt = conn.createStatement();
+			ResultSet result = stmt.executeQuery("select * from STUDENTINFO "+filterBy);
 			int i = 1;
 			while(result.next()) {
 				System.out.println("#"+i +".  \nStudent ID:  "+ result.getString("ID")+"\nName:  "+result.getString("Name")+"\nGender:  "+result.getString("Gender")+"\nFaculty Of "+result.getString("Major")+"\nPaid(O/X):  "+result.getString("Paid")+"\n");
@@ -160,15 +189,18 @@ public class StudentDataManagement {
 
 	} 
 	
+	public void setFilterBy(String filterBy) {
+		this.filterBy = filterBy;
+	}
+
 	public void sortBy(String sorting) {
-		StudentDataManagement.sorting = sorting;
+		this.sorting = sorting;
 	}
 
 	public void setIdorname(String idorname) {
 		this.idorname = idorname;
 	}
 
-	
 /*
 	public List<StudentData> selectAllStudent() {
 

@@ -11,7 +11,7 @@ public class Options {
 //print options	
 	public void printOptions() {
 		System.out.println("--------------------------------------");
-		System.out.println("-    options (7 to exit progrma)     -");
+		System.out.println("-    options (8 to exit program)     -");
 		System.out.println("======================================");
 		System.out.println("-  1. Insert student data            -");
 		System.out.println("-  2. Delete student data            -");
@@ -19,6 +19,7 @@ public class Options {
 		System.out.println("-  4. Search Student                 -");
 		System.out.println("-  5. Print all studnet              -");
 		System.out.println("-  6. Sorting                        -");
+		System.out.println("-  7. Filtering                      -");
 		System.out.println("--------------------------------------");
 	}
 
@@ -101,8 +102,9 @@ public class Options {
 		
 		System.out.println("Input student "+idOrName+" you want to search");
 		String name = USERINPUT.nextLine();
-
+		
 		try {
+		System.out.println("Searching...");
 		System.out.println("\nID: "+ stm.selectOneStudent(name).getId()+ "\nName: " 
 				+ stm.selectOneStudent(name).getName()+"\nGender: "+ stm.selectOneStudent(name).getGender()
 				+ "\nMajor: "+stm.selectOneStudent(name).getMajor()+ "\nPaid(O/X): "+stm.selectOneStudent(name).getPaid()+"\n");
@@ -110,13 +112,15 @@ public class Options {
 			System.out.println("There is no student named " + name + e);
 		}
 	}
-	
+
+//option 5 - print all the student information
 	public void opt5SelectAllStudents(){
 		System.out.println("#  /  Student ID  /  Name  /  Gender  /  Major  /  Paid (o/x)");
 		System.out.println("----------------------------------------------------------------------------------------------");
 		stm.selectALLStudents();
 	}
 
+//option 6 - Sorting
 	public void opt6SortingBy() {
 		System.out.println("Sort by (1) ID (2) Name (3) Gender (4) Major (5) Paid or (6) Default. Input number: ");
 		int userInput = USERINPUT.nextInt();
@@ -127,6 +131,44 @@ public class Options {
 		else if(userInput == 5)	stm.sortBy("Paid");
 		else stm.sortBy(null);
 		System.out.println("Sorting comlpeted");
+		
+	}
+	
+//option 7 - filtering
+	public void opt7FilterBy() {
+		int number1;
+		String filterBy = null;
+		System.out.println("(1) Equlas to (2) ID from ... to ... (3) Default");
+		number1 = USERINPUT.nextInt();
+		USERINPUT.nextLine();
+		
+		if(number1 == 1) {
+			System.out.println("filter by (1) Gender (2) Faculty (3) Paid");
+			int number2 = USERINPUT.nextInt();
+			USERINPUT.nextLine();
+			System.out.println("Input Value");
+			String value = USERINPUT.nextLine();
+		
+			if(number2 == 1)	filterBy = " where '"+value+"' = Gender";
+			else if(number2 == 2)	filterBy = " where '"+value+"' = Major";
+			else	filterBy = " where '"+value+"' = Paid";
+		}
+		
+		else if(number1 == 2) {
+			System.out.println("ID from A to B. Input value A");
+			int a = USERINPUT.nextInt();
+			USERINPUT.nextLine();
+			
+			System.out.println("Input Value B");
+			int b = USERINPUT.nextInt();
+			USERINPUT.nextLine();
+			
+			filterBy = " where ID between "+a+" and "+b;
+		}
+		else	filterBy = "";
+		
+		stm.setFilterBy(filterBy);
+		System.out.println("filtering completed.");
 		
 	}
 	

@@ -6,8 +6,8 @@ public class Run {
 	public static void main(String[] args) {
 
 		Options options = new Options();
-
 		Scanner USERINPUT = new Scanner(System.in);
+		
 		options.printOptions();
 		for(;;) {
 			System.out.println("Choose the option");
@@ -25,9 +25,11 @@ public class Run {
 			else if(option == 6)
 				options.opt6SortingBy();
 			else if(option == 7)
+				options.opt7FilterBy();
+			else if(option == 8)
 				break;
-			else
-				System.out.println("Choose a valid number");
+			else	System.out.println("Input valid number");
+			
 		options.printOptions();
 		}
 		USERINPUT.close();
