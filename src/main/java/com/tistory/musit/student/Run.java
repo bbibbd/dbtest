@@ -12,8 +12,6 @@ public class Run {
 		for(;;) {
 			System.out.println("Choose the option");
 			int option = USERINPUT.nextInt();
-			USERINPUT.nextLine();
-
 			if(option == 1) 
 				options.opt1SetStudent();
 			else if(option == 2)
@@ -30,6 +28,7 @@ public class Run {
 				break;
 			else
 				System.out.println("Choose a valid number");
+		options.printOptions();
 		}
 		USERINPUT.close();
 	}

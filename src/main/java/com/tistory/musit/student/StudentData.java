@@ -6,8 +6,8 @@ public class StudentData {
 	private String name;
 	private String gender;
 	private String major;
-	private String email;
-	
+	private String paid;
+
 	public int getId() {
 		return id;
 	}
@@ -32,11 +32,11 @@ public class StudentData {
 	public void setMajor(String major) {
 		this.major = major;
 	}
-	public String getEmail() {
-		return email;
+	public String getPaid() {
+		return paid;
 	}
-	public void setEmail(String email) {
-		this.email = email;
+	public void setPaid(String paid) {
+		this.paid = paid;
 	}
 
 }

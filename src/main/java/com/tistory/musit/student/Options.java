@@ -1,5 +1,5 @@
 package com.tistory.musit.student;
-import java.util.List;
+
 import java.util.Scanner;
 
 public class Options {
@@ -16,7 +16,7 @@ public class Options {
 		System.out.println("-  1. Insert student data            -");
 		System.out.println("-  2. Delete student data            -");
 		System.out.println("-  3. Update student data            -");
-		System.out.println("-  4. Select One Student             -");
+		System.out.println("-  4. Search Student                 -");
 		System.out.println("-  5. Print all studnet              -");
 		System.out.println("-  6. Sorting                        -");
 		System.out.println("--------------------------------------");
@@ -33,8 +33,8 @@ public class Options {
 		student.setGender(USERINPUT.nextLine());
 		System.out.println("Input major");
 		student.setMajor(USERINPUT.nextLine());
-		System.out.println("Input E-Mail");
-		student.setEmail(USERINPUT.nextLine());
+		System.out.println("paid or not? (O/X)");
+		student.setPaid(USERINPUT.nextLine());
 		stm.insertStudent(student);
 		
 		System.out.println("Sucessfully insterted student");
@@ -43,8 +43,12 @@ public class Options {
 //option 2 - delete student information from database
 	public void opt2DeleteStudent() {
 		try {
+			
 			System.out.println("Input student ID you want to delete");
+
 			stm.deleteStudent(USERINPUT.nextInt());
+			USERINPUT.nextLine();
+			
 			USERINPUT.nextLine();
 			System.out.println("Susccessfully deleted student");
 			
@@ -68,7 +72,7 @@ public class Options {
 			System.out.println("Input major");
 			student.setMajor(USERINPUT.nextLine());
 			System.out.println("Input E-Mail");
-			student.setEmail(USERINPUT.nextLine());
+			student.setPaid(USERINPUT.nextLine());
 			
 			stm.updateStudent(student);
 
@@ -78,33 +82,49 @@ public class Options {
 		}
 	}
 
-//option 4 - show one student data 	
+//option 4 - search student 	
 	public void opt4SelectOneSutdent() {
 		
-		System.out.println("Input student name you want to search");
+		System.out.println("Search student by (1) ID (2) Name. Input number");
+		int number = USERINPUT.nextInt();
+		USERINPUT.nextLine();
+		
+		String idOrName;
+		if(number == 1) {
+			idOrName = "ID";
+			stm.setIdorname("ID");
+		}
+		else	{
+			idOrName = "name";
+			stm.setIdorname("Name");
+		}
+		
+		System.out.println("Input student "+idOrName+" you want to search");
 		String name = USERINPUT.nextLine();
 
 		try {
-		System.out.println("ID: "+ stm.selectOneStudent(name).getId()+ "\tName: " 
-				+ stm.selectOneStudent(name).getName()+"\t Gender: "+ stm.selectOneStudent(name).getGender()
-				+ "\nMajor: "+stm.selectOneStudent(name).getMajor()+ "\tE-Mail: "+stm.selectOneStudent(name).getEmail());
+		System.out.println("\nID: "+ stm.selectOneStudent(name).getId()+ "\nName: " 
+				+ stm.selectOneStudent(name).getName()+"\nGender: "+ stm.selectOneStudent(name).getGender()
+				+ "\nMajor: "+stm.selectOneStudent(name).getMajor()+ "\nPaid(O/X): "+stm.selectOneStudent(name).getPaid()+"\n");
 		} catch(NullPointerException e) {
 			System.out.println("There is no student named " + name + e);
 		}
 	}
 	
 	public void opt5SelectAllStudents(){
-		System.out.println("#  /  Student ID  /  Name  /  Gender  /  Major  /  eMail");
+		System.out.println("#  /  Student ID  /  Name  /  Gender  /  Major  /  Paid (o/x)");
 		System.out.println("----------------------------------------------------------------------------------------------");
 		stm.selectALLStudents();
 	}
 
 	public void opt6SortingBy() {
-		System.out.println("Sort by (1) ID (2) Name (3) Gender or (4) Default. Input number: ");
+		System.out.println("Sort by (1) ID (2) Name (3) Gender (4) Major (5) Paid or (6) Default. Input number: ");
 		int userInput = USERINPUT.nextInt();
 		if(userInput == 1)	stm.sortBy("ID");
 		else if(userInput == 2)	stm.sortBy("Name");
 		else if(userInput == 3) stm.sortBy("Gender");
+		else if(userInput == 4) stm.sortBy("Major");
+		else if(userInput == 5)	stm.sortBy("Paid");
 		else stm.sortBy(null);
 		System.out.println("Sorting comlpeted");
 		

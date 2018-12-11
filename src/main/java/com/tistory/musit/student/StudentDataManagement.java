@@ -1,12 +1,17 @@
 package com.tistory.musit.student;
-import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 public class StudentDataManagement {
 	private Connection conn;
 	Statement stmt = null;
 	private static String sorting = null;
+	private String idorname = null;
 	
 	private final static String URL = "jdbc:mysql://104.155.151.3/test";
 	private final static String ID = "root";
@@ -33,7 +38,7 @@ public class StudentDataManagement {
 			pstmt.setString(2, student.getName());
 			pstmt.setString(3, student.getGender());
 			pstmt.setString(4, student.getMajor());
-			pstmt.setString(5, student.getEmail());
+			pstmt.setString(5, student.getPaid());
 
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -82,7 +87,7 @@ public class StudentDataManagement {
 
 	//update data from the table
 	public void updateStudent(StudentData student) {
-		String sql = "update STUDENTINFO set Name = ?, Gender = ? , Major = ?, eMail = ? where ID = ?";
+		String sql = "update STUDENTINFO set Name = ?, Gender = ? , Major = ?, Paid = ? where ID = ?";
 		PreparedStatement pstmt = null;
 
 		try {
@@ -90,7 +95,7 @@ public class StudentDataManagement {
 			pstmt.setString(1, student.getName());
 			pstmt.setString(2, student.getGender());
 			pstmt.setString(3, student.getMajor());
-			pstmt.setString(4, student.getEmail());
+			pstmt.setString(4, student.getPaid());
 			pstmt.setInt(5, student.getId());
 
 			pstmt.executeUpdate();
@@ -114,7 +119,7 @@ public class StudentDataManagement {
 	}
 
 	public StudentData selectOneStudent(String name) {  
-		String sql = "select * from STUDENTINFO where Name = ?";
+		String sql = "select * from STUDENTINFO where "+idorname+" = ?";
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		StudentData student = null;     
@@ -130,7 +135,7 @@ public class StudentDataManagement {
 				student.setName(rs.getString("Name"));
 				student.setGender(rs.getString("Gender"));
 				student.setMajor(rs.getString("Major"));
-				student.setEmail(rs.getString("eMail"));
+				student.setPaid(rs.getString("Paid"));
 			}       
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -145,7 +150,7 @@ public class StudentDataManagement {
 			ResultSet result = stmt.executeQuery("select * from STUDENTINFO order by "+ sorting);
 			int i = 1;
 			while(result.next()) {
-				System.out.println(i +".  "+ result.getString("ID")+"  /  "+result.getString("Name")+"  /  "+result.getString("Gender")+"  /  "+result.getString("Major")+"  /  "+result.getString("eMail"));
+				System.out.println("#"+i +".  \nStudent ID:  "+ result.getString("ID")+"\nName:  "+result.getString("Name")+"\nGender:  "+result.getString("Gender")+"\nFaculty Of "+result.getString("Major")+"\nPaid(O/X):  "+result.getString("Paid")+"\n");
 				i++;
 			}
 
@@ -159,6 +164,11 @@ public class StudentDataManagement {
 		StudentDataManagement.sorting = sorting;
 	}
 
+	public void setIdorname(String idorname) {
+		this.idorname = idorname;
+	}
+
+	
 /*
 	public List<StudentData> selectAllStudent() {
 
@@ -179,7 +189,7 @@ public class StudentDataManagement {
 				student.setName(rs.getString("Name"));
 				student.setGender(rs.getString("Gender"));
 				student.setMajor(rs.getString("Major"));
-				student.setEmail(rs.getString("eMail"));
+				student.setPaid(rs.getString("Paid"));
 				studentList.add(student);
 			}       
 		} catch (SQLException e) {
