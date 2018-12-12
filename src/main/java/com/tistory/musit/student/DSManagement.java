@@ -7,23 +7,20 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class StudentDataManagement {
+public class DSManagement {
+	
 	private Connection conn;
 	Statement stmt = null;
 	
 	private String filterBy = "";
 	private String sorting = null;
-
-	
 	private String idorname = null;
 	
 	private final static String URL = "jdbc:mysql://104.155.151.3/test";
 	private final static String ID = "root";
 	private final static String PW = "root";
-
-
 	
-	public StudentDataManagement() {
+	public DSManagement() {
 		try {
 			conn = DriverManager.getConnection(URL,ID,PW);
 		} catch (SQLException e) {
@@ -31,18 +28,17 @@ public class StudentDataManagement {
 			e.printStackTrace();
 		}
 	}
-
-	//Insert new data to the table
-	public void insertStudent(StudentData student) {
-		String sql = "insert into STUDENTINFO values (?, ?, ?, ?, ?)";
+	public void insertStudent(DormitoryStudentData student) {
+		String sql = "insert into Dormitory_Student_List values (?, ?, ?, ?, ?, ?)";
 		PreparedStatement pstmt = null;
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, student.getId());
 			pstmt.setString(2, student.getName());
 			pstmt.setString(3, student.getGender());
-			pstmt.setString(4, student.getMajor());
-			pstmt.setString(5, student.getPaid());
+			pstmt.setInt(4, student.getRoomNumber());
+			pstmt.setInt(5, student.getBenefit());
+			pstmt.setInt(6, student.getPenalty());
 
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -60,17 +56,16 @@ public class StudentDataManagement {
 			}
 		}    
 	}
-
+	
 	//delete data from table
 	public void deleteStudent(int studentID) {
-		String sql = "delete from STUDENTINFO where ID = ?";
+		String sql = "delete from Dormitory_Student_List where ID = ?";
 
 		PreparedStatement pstmt = null;
 
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, studentID);
-
 			pstmt.executeUpdate();
 
 		} catch (SQLException e) {
@@ -90,18 +85,26 @@ public class StudentDataManagement {
 	}
 
 	//update data from the table
-	public void updateStudent(StudentData student) {
-		String sql = "update STUDENTINFO set Name = ?, Gender = ? , Major = ?, Paid = ? where ID = ?";
+	public void updateStudent(DormitoryStudentData student, int i) {
+		String updateWhat="";
+		if(i==1)	updateWhat = "Room_no";
+		else if(i==2)	updateWhat = "Benefit";
+		else	updateWhat ="Penalty";
+		
+		String sql = "update Dormitory_Student_List set "+updateWhat+" = ? where ID = ?";
 		PreparedStatement pstmt = null;
+		
 
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, student.getName());
-			pstmt.setString(2, student.getGender());
-			pstmt.setString(3, student.getMajor());
-			pstmt.setString(4, student.getPaid());
-			pstmt.setInt(5, student.getId());
-
+			if(updateWhat =="Room_no")
+				pstmt.setInt(1, student.getRoomNumber());
+			else if(updateWhat =="Benefit")
+				pstmt.setInt(1, student.getBenefit());
+			else
+				pstmt.setInt(1, student.getPenalty());
+			
+			pstmt.setInt(2, student.getId());
 			pstmt.executeUpdate();
 
 		} catch (SQLException e) {
@@ -118,28 +121,28 @@ public class StudentDataManagement {
 				e.printStackTrace();
 			}
 		}
-
-
 	}
 
-	public StudentData selectOneStudent(String name) {  
-		String sql = "select * from STUDENTINFO where "+idorname+" = ?";
+	//search one student
+	public DormitoryStudentData selectOneStudent(String name) {  
+		String sql = "select * from Dormitory_Student_List where "+idorname+" = ?";
 		PreparedStatement pstmt = null;
 		ResultSet result = null;
-		StudentData student = null;     
+		DormitoryStudentData student = null;   
+		
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, name);
-
 			result = pstmt.executeQuery();
 
 			while(result.next()) {
-				student = new StudentData();
+				student = new DormitoryStudentData();
 				student.setId(result.getInt("ID"));
 				student.setName(result.getString("Name"));
 				student.setGender(result.getString("Gender"));
-				student.setMajor(result.getString("Major"));
-				student.setPaid(result.getString("Paid"));
+				student.setRoomNumber(result.getInt("Room_no"));
+				student.setBenefit(result.getInt("Benefit"));
+				student.setPenalty(result.getInt("Penalty"));
 			}       
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -148,8 +151,9 @@ public class StudentDataManagement {
 		return student;  
 	}
 
+	//Show all student data
 	public void selectALLStudents() { 
-		String sql = "select * from STUDENTINFO "+filterBy+" order by "+sorting;
+		String sql = "select * from Dormitory_Student_List "+filterBy+" order by "+sorting;
 		
 		try {
 			Statement stmt = conn.createStatement();
@@ -159,17 +163,16 @@ public class StudentDataManagement {
 				System.out.println("#"+i +".  \nStudent ID:  "
 				+ result.getString("ID")+"\nName:  "
 				+ result.getString("Name")+"\nGender:  "
-				+ result.getString("Gender")+"\nFaculty Of "
-				+ result.getString("Major")+"\nPaid(O/X):  "
-				+ result.getString("Paid")+"\n");
-			
+				+ result.getString("Gender")+"\nRoom NO. "
+				+ result.getString("Room_no")+"\nBenefit Score:  "
+				+ result.getString("Benefit")+"\nPenalty Score:  "
+				+ result.getString("Penalty")+"\n");
 				i++;
 			}
 
 		} catch(Exception e){
 			System.out.println("Error" + e);
 		}
-
 	} 
 	
 	public void setFilterBy(String filterBy) {
@@ -183,38 +186,4 @@ public class StudentDataManagement {
 	public void setIdorname(String idorname) {
 		this.idorname = idorname;
 	}
-
-/*
-	public List<StudentData> selectAllStudent() {
-
-		String sql = "select * from STUDENTINFO";
-
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		StudentData student = null;
-		List<StudentData> studentList = new ArrayList<StudentData>();   
-		try {
-			pstmt = conn.prepareStatement(sql);
-
-			rs = pstmt.executeQuery();
-
-			while(rs.next()) {
-				student = new StudentData();
-				student.setId(rs.getInt("ID"));
-				student.setName(rs.getString("Name"));
-				student.setGender(rs.getString("Gender"));
-				student.setMajor(rs.getString("Major"));
-				student.setPaid(rs.getString("Paid"));
-				studentList.add(student);
-			}       
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}       
-		return studentList;
-	}
-	*/
-
-
-
 }

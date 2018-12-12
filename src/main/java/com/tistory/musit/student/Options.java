@@ -4,25 +4,11 @@ import java.util.Scanner;
 
 public class Options {
 	
+	TextUI tui = new TextUI();
 	StudentData student = new StudentData();
-	Scanner USERINPUT = new Scanner(System.in);
 	StudentDataManagement stm = new StudentDataManagement();
+	Scanner USERINPUT = new Scanner(System.in);
 	
-//print options	
-	public void printOptions() {
-		System.out.println("--------------------------------------");
-		System.out.println("-    options (8 to exit program)     -");
-		System.out.println("======================================");
-		System.out.println("-  1. Insert student data            -");
-		System.out.println("-  2. Delete student data            -");
-		System.out.println("-  3. Update student data            -");
-		System.out.println("-  4. Search Student                 -");
-		System.out.println("-  5. Print all studnet              -");
-		System.out.println("-  6. Sorting                        -");
-		System.out.println("-  7. Filtering                      -");
-		System.out.println("--------------------------------------");
-	}
-
 //option 1 - insert student information into database
 	public void opt1SetStudent() {
 		System.out.println("Input student ID");
@@ -48,8 +34,6 @@ public class Options {
 			System.out.println("Input student ID you want to delete");
 
 			stm.deleteStudent(USERINPUT.nextInt());
-			USERINPUT.nextLine();
-			
 			USERINPUT.nextLine();
 			System.out.println("Susccessfully deleted student");
 			
@@ -170,6 +154,10 @@ public class Options {
 		stm.setFilterBy(filterBy);
 		System.out.println("filtering completed.");
 		
+	}
+
+	public void opt8PrintFrontPage() {
+		tui.printFrontPage();
 	}
 	
 }
