@@ -56,7 +56,7 @@ public class Options {
 			student.setGender(USERINPUT.nextLine());
 			System.out.println("Input major");
 			student.setMajor(USERINPUT.nextLine());
-			System.out.println("Input E-Mail");
+			System.out.println("Paid?(O/X)");
 			student.setPaid(USERINPUT.nextLine());
 			
 			stm.updateStudent(student);
@@ -93,15 +93,16 @@ public class Options {
 				+ stm.selectOneStudent(name).getName()+"\nGender: "+ stm.selectOneStudent(name).getGender()
 				+ "\nMajor: "+stm.selectOneStudent(name).getMajor()+ "\nPaid(O/X): "+stm.selectOneStudent(name).getPaid()+"\n");
 		} catch(NullPointerException e) {
-			System.out.println("There is no student named " + name + e);
+			
+			System.out.println("There is no student "+idOrName +" "+ name + e);
 		}
 	}
 
 //option 5 - print all the student information
 	public void opt5SelectAllStudents(){
-		System.out.println("#  /  Student ID  /  Name  /  Gender  /  Major  /  Paid (o/x)");
 		System.out.println("----------------------------------------------------------------------------------------------");
 		stm.selectALLStudents();
+		System.out.println("----------------------------------------------------------------------------------------------");
 	}
 
 //option 6 - Sorting

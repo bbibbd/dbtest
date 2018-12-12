@@ -28,6 +28,8 @@ public class DSManagement {
 			e.printStackTrace();
 		}
 	}
+	
+	//insert new student
 	public void insertStudent(DormitoryStudentData student) {
 		String sql = "insert into Dormitory_Student_List values (?, ?, ?, ?, ?, ?)";
 		PreparedStatement pstmt = null;
