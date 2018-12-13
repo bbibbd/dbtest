@@ -1,50 +1,25 @@
 package com.tistory.musit.student;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class StudentDataManagement {
-	private Connection conn;
-	Statement stmt = null;
+public class StudentDataManagement extends GetConnection {
 	
-	private String filterBy = "";
-	private String sorting = null;
-
-	
-	private String idorname = null;
-	
-	private final static String URL = "jdbc:mysql://104.155.151.3/test";
-	private final static String ID = "root";
-	private final static String PW = "root";
-
-
-	
-	public StudentDataManagement() {
-		try {
-			conn = DriverManager.getConnection(URL,ID,PW);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-
-	//Insert new data to the table
-	public void insertStudent(StudentData student) {
+	//insert new student information to the server
+	public void insertStudent(AllStudentData student) {	
 		String sql = "insert into STUDENTINFO values (?, ?, ?, ?, ?)";
 		PreparedStatement pstmt = null;
 		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, student.getId());
-			pstmt.setString(2, student.getName());
+			pstmt = conn.prepareStatement(sql);	
+			pstmt.setInt(1, student.getId());	
+			pstmt.setString(2, student.getName());	
 			pstmt.setString(3, student.getGender());
 			pstmt.setString(4, student.getMajor());
 			pstmt.setString(5, student.getPaid());
 
-			pstmt.executeUpdate();
+			pstmt.executeUpdate();	//update to the server
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -61,7 +36,7 @@ public class StudentDataManagement {
 		}    
 	}
 
-	//delete data from table
+	//delete student information from the server
 	public void deleteStudent(int studentID) {
 		String sql = "delete from STUDENTINFO where ID = ?";
 
@@ -89,8 +64,8 @@ public class StudentDataManagement {
 		}   
 	}
 
-	//update data from the table
-	public void updateStudent(StudentData student) {
+	//update student information from the table
+	public void updateStudent(AllStudentData student) {
 		String sql = "update STUDENTINFO set Name = ?, Gender = ? , Major = ?, Paid = ? where ID = ?";
 		PreparedStatement pstmt = null;
 
@@ -122,11 +97,12 @@ public class StudentDataManagement {
 
 	}
 
-	public StudentData selectOneStudent(String name) {  
+	//search one student by id or name. 
+	public AllStudentData selectOneStudent(String name) {  
 		String sql = "select * from STUDENTINFO where "+idorname+" = ?";
 		PreparedStatement pstmt = null;
 		ResultSet result = null;
-		StudentData student = null;     
+		AllStudentData student = null;     
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, name);
@@ -134,7 +110,7 @@ public class StudentDataManagement {
 			result = pstmt.executeQuery();
 
 			while(result.next()) {
-				student = new StudentData();
+				student = new AllStudentData();
 				student.setId(result.getInt("ID"));
 				student.setName(result.getString("Name"));
 				student.setGender(result.getString("Gender"));
@@ -147,7 +123,8 @@ public class StudentDataManagement {
 		}       
 		return student;  
 	}
-
+	
+	//print all student information which is registered in the database
 	public void selectALLStudents() { 
 		String sql = "select * from STUDENTINFO "+filterBy+" order by "+sorting;
 		
@@ -162,59 +139,13 @@ public class StudentDataManagement {
 				+ result.getString("Gender")+"\nFaculty Of "
 				+ result.getString("Major")+"\nPaid(O/X):  "
 				+ result.getString("Paid")+"\n");
-			
+		
 				i++;
 			}
-
 		} catch(Exception e){
 			System.out.println("Error" + e);
 		}
-
 	} 
-	
-	public void setFilterBy(String filterBy) {
-		this.filterBy = filterBy;
-	}
-
-	public void sortBy(String sorting) {
-		this.sorting = sorting;
-	}
-
-	public void setIdorname(String idorname) {
-		this.idorname = idorname;
-	}
-
-/*
-	public List<StudentData> selectAllStudent() {
-
-		String sql = "select * from STUDENTINFO";
-
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		StudentData student = null;
-		List<StudentData> studentList = new ArrayList<StudentData>();   
-		try {
-			pstmt = conn.prepareStatement(sql);
-
-			rs = pstmt.executeQuery();
-
-			while(rs.next()) {
-				student = new StudentData();
-				student.setId(rs.getInt("ID"));
-				student.setName(rs.getString("Name"));
-				student.setGender(rs.getString("Gender"));
-				student.setMajor(rs.getString("Major"));
-				student.setPaid(rs.getString("Paid"));
-				studentList.add(student);
-			}       
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}       
-		return studentList;
-	}
-	*/
-
 
 
 }

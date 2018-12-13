@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class DSoptions {
 	
 	TextUI tui = new TextUI();
-	DormitoryStudentData student = new DormitoryStudentData();
+	AllStudentData student = new AllStudentData();
 	Scanner USERINPUT = new Scanner(System.in);
 	DSManagement stm = new DSManagement();
 	

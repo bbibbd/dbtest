@@ -1,41 +1,20 @@
 package com.tistory.musit.student;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class DSManagement {
+public class DSManagement extends GetConnection {
 	
-	private Connection conn;
-	Statement stmt = null;
-	
-	private String filterBy = "";
-	private String sorting = null;
-	private String idorname = null;
-	
-	private final static String URL = "jdbc:mysql://104.155.151.3/test";
-	private final static String ID = "root";
-	private final static String PW = "root";
-	
-	public DSManagement() {
-		try {
-			conn = DriverManager.getConnection(URL,ID,PW);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
 	
 	//insert new student
-	public void insertStudent(DormitoryStudentData student) {
-		String sql = "insert into Dormitory_Student_List values (?, ?, ?, ?, ?, ?)";
+	public void insertStudent(AllStudentData student) {
+		String sql = "insert into Dormitory_Student_List values (?, ?, ?, ?, ?, ?)";	
 		PreparedStatement pstmt = null;
 		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, student.getId());
+			pstmt = conn.prepareStatement(sql);	
+			pstmt.setInt(1, student.getId());	
 			pstmt.setString(2, student.getName());
 			pstmt.setString(3, student.getGender());
 			pstmt.setInt(4, student.getRoomNumber());
@@ -86,8 +65,8 @@ public class DSManagement {
 		}   
 	}
 
-	//update data from the table
-	public void updateStudent(DormitoryStudentData student, int i) {
+	//update data to the table
+	public void updateStudent(AllStudentData student, int i) {
 		String updateWhat="";
 		if(i==1)	updateWhat = "Room_no";
 		else if(i==2)	updateWhat = "Benefit";
@@ -126,11 +105,11 @@ public class DSManagement {
 	}
 
 	//search one student
-	public DormitoryStudentData selectOneStudent(String name) {  
+	public AllStudentData selectOneStudent(String name) {  
 		String sql = "select * from Dormitory_Student_List where "+idorname+" = ?";
 		PreparedStatement pstmt = null;
 		ResultSet result = null;
-		DormitoryStudentData student = null;   
+		AllStudentData student = null;   
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -138,7 +117,7 @@ public class DSManagement {
 			result = pstmt.executeQuery();
 
 			while(result.next()) {
-				student = new DormitoryStudentData();
+				student = new AllStudentData();
 				student.setId(result.getInt("ID"));
 				student.setName(result.getString("Name"));
 				student.setGender(result.getString("Gender"));
@@ -176,16 +155,5 @@ public class DSManagement {
 			System.out.println("Error" + e);
 		}
 	} 
-	
-	public void setFilterBy(String filterBy) {
-		this.filterBy = filterBy;
-	}
 
-	public void sortBy(String sorting) {
-		this.sorting = sorting;
-	}
-
-	public void setIdorname(String idorname) {
-		this.idorname = idorname;
-	}
 }

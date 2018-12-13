@@ -4,12 +4,11 @@ import java.util.Scanner;
 
 public class Options {
 	
-	TextUI tui = new TextUI();
-	StudentData student = new StudentData();
+	AllStudentData student = new AllStudentData();	//instantiate AllStudentData as student
 	StudentDataManagement stm = new StudentDataManagement();
-	Scanner USERINPUT = new Scanner(System.in);
+	Scanner USERINPUT = new Scanner(System.in);	//instantiate Scanner as USERINPUT
 	
-//option 1 - insert student information into database
+	//option 1 - insert student information into database
 	public void opt1SetStudent() {
 		System.out.println("Input student ID");
 		student.setId(USERINPUT.nextInt());
@@ -43,7 +42,7 @@ public class Options {
 		
 	}
 	
-//option 3 - update student information to database	
+	//option 3 - update student information to database	
 	public void opt3UpdateStudentData() {
 		System.out.println("Input student ID you want to update");
 		int id = USERINPUT.nextInt();
@@ -67,7 +66,7 @@ public class Options {
 		}
 	}
 
-//option 4 - search student 	
+	//option 4 - search student 	
 	public void opt4SelectOneSutdent() {
 		
 		System.out.println("Search student by (1) ID (2) Name. Input number");
@@ -89,9 +88,15 @@ public class Options {
 		
 		try {
 		System.out.println("Searching...");
-		System.out.println("\nID: "+ stm.selectOneStudent(name).getId()+ "\nName: " 
-				+ stm.selectOneStudent(name).getName()+"\nGender: "+ stm.selectOneStudent(name).getGender()
-				+ "\nMajor: "+stm.selectOneStudent(name).getMajor()+ "\nPaid(O/X): "+stm.selectOneStudent(name).getPaid()+"\n");
+		System.out.println("\nID: "+ stm.selectOneStudent(name).getId()
+				+ "\nName: " 
+				+ stm.selectOneStudent(name).getName()
+				+"\nGender: "
+				+ stm.selectOneStudent(name).getGender()
+				+ "\nMajor: "
+				+stm.selectOneStudent(name).getMajor()
+				+ "\nPaid(O/X): "
+				+stm.selectOneStudent(name).getPaid()+"\n");
 		} catch(NullPointerException e) {
 			
 			System.out.println("There is no student "+idOrName +" "+ name + e);
@@ -100,14 +105,21 @@ public class Options {
 
 //option 5 - print all the student information
 	public void opt5SelectAllStudents(){
-		System.out.println("----------------------------------------------------------------------------------------------");
+		System.out.println("----------------------------"
+				+ "--------------------------------------"
+				+ "----------------------------");
 		stm.selectALLStudents();
-		System.out.println("----------------------------------------------------------------------------------------------");
+		System.out.println("-----------------------------"
+				+ "---------------------------------------"
+				+ "--------------------------");
 	}
 
 //option 6 - Sorting
 	public void opt6SortingBy() {
-		System.out.println("Sort by (1) ID (2) Name (3) Gender (4) Major (5) Paid or (6) Default. Input number: ");
+		System.out.println("Sort by (1) ID (2) Name (3) Gender "
+				+ "(4) Major (5) Paid or (6) Default. "
+				+ "Input number: ");
+		
 		int userInput = USERINPUT.nextInt();
 		if(userInput == 1)	stm.sortBy("ID");
 		else if(userInput == 2)	stm.sortBy("Name");
@@ -157,8 +169,4 @@ public class Options {
 		
 	}
 
-	public void opt8PrintFrontPage() {
-		tui.printFrontPage();
-	}
-	
 }

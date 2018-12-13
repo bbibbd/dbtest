@@ -1,13 +1,17 @@
 package com.tistory.musit.student;
 
-public class StudentData {
-
+public class AllStudentData {
+	
 	private int id;
 	private String name;
 	private String gender;
 	private String major;
 	private String paid;
-
+	
+	private int roomNumber;
+	private int benefit;
+	private int penalty; 
+	
 	public int getId() {
 		return id;
 	}
@@ -26,6 +30,7 @@ public class StudentData {
 	public void setGender(String gender) {
 		this.gender = gender;
 	}
+	
 	public String getMajor() {
 		return major;
 	}
@@ -37,6 +42,25 @@ public class StudentData {
 	}
 	public void setPaid(String paid) {
 		this.paid = paid;
+	}
+	
+	public int getRoomNumber() {
+		return roomNumber;
+	}
+	public void setRoomNumber(int roomNumber) {
+		this.roomNumber = roomNumber;
+	}
+	public int getBenefit() {
+		return benefit;
+	}
+	public void setBenefit(int benefit) {
+		this.benefit = benefit;
+	}
+	public int getPenalty() {
+		return penalty;
+	}
+	public void setPenalty(int penalty) {
+		this.penalty = penalty;
 	}
 
 }
