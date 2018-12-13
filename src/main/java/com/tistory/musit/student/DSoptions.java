@@ -120,13 +120,17 @@ public class DSoptions {
 
 		//option 5 - print all the student information
 		public void opt5SelectAllStudents(){
-			System.out.println("----------------------------------------------------------------------------------------------");
+			System.out.println("------------------------------------"
+					+ "----------------------------------------------------------");
 			stm.selectALLStudents();
 		}
 		
 		//option 6 - Sorting
 		public void opt6SortingBy() {
-			System.out.println("Sort by (1) ID (2) Name (3) Gender (4) Room Number (5) Benefit Score (6) Penalty Score or (7) Default. Input number: ");
+			System.out.println("Sort by (1) ID (2) Name (3) Gender "
+					+ "(4) Room Number (5) Benefit Score (6) Penalty Score or"
+					+ " (7) Default. Input number: ");
+			
 			int userInput = USERINPUT.nextInt();
 			if(userInput == 1)	stm.sortBy("ID");
 			else if(userInput == 2)	stm.sortBy("Name");
@@ -142,7 +146,8 @@ public class DSoptions {
 		public void opt7FilterBy() {
 			int number1;
 			String filterBy = null;
-			System.out.println("(1) Equlas to (2) Benefit/Penalty score from ... to ... (3) Default");
+			System.out.println("(1) Equlas to "
+					+ "(2) Benefit/Penalty score from ... to ... (3) Default");
 			number1 = USERINPUT.nextInt();
 			USERINPUT.nextLine();
 			
