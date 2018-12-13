@@ -6,11 +6,10 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class DSManagement extends GetConnection {
-	
-	
 	//insert new student
 	public void insertStudent(AllStudentData student) {
-		String sql = "insert into Dormitory_Student_List values (?, ?, ?, ?, ?, ?)";	
+		String sql = "insert into Dormitory_Student_List"
+				+ " values (?, ?, ?, ?, ?, ?)";	
 		PreparedStatement pstmt = null;
 		try {
 			pstmt = conn.prepareStatement(sql);	

@@ -66,7 +66,8 @@ public class StudentDataManagement extends GetConnection {
 
 	//update student information from the table
 	public void updateStudent(AllStudentData student) {
-		String sql = "update STUDENTINFO set Name = ?, Gender = ? , Major = ?, Paid = ? where ID = ?";
+		String sql = "update STUDENTINFO set Name = ?,"
+				+ " Gender = ? , Major = ?, Paid = ? where ID = ?";
 		PreparedStatement pstmt = null;
 
 		try {
@@ -93,13 +94,12 @@ public class StudentDataManagement extends GetConnection {
 				e.printStackTrace();
 			}
 		}
-
-
 	}
 
 	//search one student by id or name. 
 	public AllStudentData selectOneStudent(String name) {  
-		String sql = "select * from STUDENTINFO where "+idorname+" = ?";
+		String sql = "select * from STUDENTINFO where "
+										+idorname+" = ?";
 		PreparedStatement pstmt = null;
 		ResultSet result = null;
 		AllStudentData student = null;     
@@ -124,10 +124,10 @@ public class StudentDataManagement extends GetConnection {
 		return student;  
 	}
 	
-	//print all student information which is registered in the database
+	//print all student information in the database
 	public void selectALLStudents() { 
-		String sql = "select * from STUDENTINFO "+filterBy+" order by "+sorting;
-		
+		String sql = "select * from STUDENTINFO "
+								+filterBy+" order by "+sorting;
 		try {
 			Statement stmt = conn.createStatement();
 			ResultSet result = stmt.executeQuery(sql);

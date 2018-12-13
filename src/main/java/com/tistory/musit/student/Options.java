@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 public class Options {
 	
+	TextUI tui = new TextUI();
 	AllStudentData student = new AllStudentData();	//instantiate AllStudentData as student
 	StudentDataManagement stm = new StudentDataManagement();
 	Scanner USERINPUT = new Scanner(System.in);	//instantiate Scanner as USERINPUT

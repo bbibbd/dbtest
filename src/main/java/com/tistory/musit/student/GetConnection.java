@@ -28,7 +28,6 @@ public class GetConnection {
 		}
 	}
 	
-	
 	//setter of filterBy variable
 	public void setFilterBy(String filterBy) {
 		this.filterBy = filterBy;

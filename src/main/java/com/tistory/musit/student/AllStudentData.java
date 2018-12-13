@@ -1,13 +1,12 @@
 package com.tistory.musit.student;
 
 public class AllStudentData {
-	
+
 	private int id;
 	private String name;
 	private String gender;
 	private String major;
 	private String paid;
-	
 	private int roomNumber;
 	private int benefit;
 	private int penalty; 

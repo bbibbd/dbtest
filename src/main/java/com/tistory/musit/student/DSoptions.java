@@ -54,7 +54,8 @@ public class DSoptions {
 			int id = USERINPUT.nextInt();
 			USERINPUT.nextLine();	
 			
-			System.out.println("Update student's (1)Room Number (2)Beneit Score (3)Penalty Score");
+			System.out.println("Update student's (1)Room Number "
+					+ "(2)Beneit Score (3)Penalty Score");
 			int i = USERINPUT.nextInt();
 			USERINPUT.nextLine();
 			
@@ -85,7 +86,8 @@ public class DSoptions {
 		//option 4 - search student 	
 		public void opt4SelectOneSutdent() {
 			
-			System.out.println("Search student by (1) ID (2) Name. Input number");
+			System.out.println("Search student by (1) ID (2) Name. "
+					+ "Input number");
 			int number = USERINPUT.nextInt();
 			USERINPUT.nextLine();
 			
@@ -105,11 +107,14 @@ public class DSoptions {
 			try {
 			System.out.println("Searching...");
 			System.out.println("\nID: "+ stm.selectOneStudent(name).getId()+ "\nName: " 
-					+ stm.selectOneStudent(name).getName()+"\nGender: "+ stm.selectOneStudent(name).getGender()
-					+ "\nRoom No: "+stm.selectOneStudent(name).getRoomNumber()+ "\nBenefit Score: "+stm.selectOneStudent(name).getBenefit()
-					+"\nPenalty Score: "+stm.selectOneStudent(name).getPenalty()+"\n");
+					+ stm.selectOneStudent(name).getName()+"\nGender: "
+					+ stm.selectOneStudent(name).getGender()
+					+ "\nRoom No: "+stm.selectOneStudent(name).getRoomNumber()
+					+ "\nBenefit Score: "+stm.selectOneStudent(name).getBenefit()
+					+"\nPenalty Score: "+stm.selectOneStudent(name).getPenalty()
+					+"\n");
 			} catch(NullPointerException e) {
-				System.out.println("There is no student named " + name +". "+ e);
+				System.out.println("There is no student " +idOrName+" "+name +". "+ e);
 			}
 		}
 
