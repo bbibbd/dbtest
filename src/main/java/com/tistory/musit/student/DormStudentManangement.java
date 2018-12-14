@@ -5,9 +5,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class DSManagement extends GetConnection {
+public class DormStudentManangement extends GetConnection implements StudentDataManagement {
 	//insert new student
-	public void insertStudent(AllStudentData student) {
+	public void insertStudent(StudentData student) {
 		String sql = "insert into Dormitory_Student_List"
 				+ " values (?, ?, ?, ?, ?, ?)";	
 		PreparedStatement pstmt = null;
@@ -65,7 +65,7 @@ public class DSManagement extends GetConnection {
 	}
 
 	//update data to the table
-	public void updateStudent(AllStudentData student, int i) {
+	public void updateStudent(StudentData student, int i) {
 		String updateWhat="";
 		if(i==1)	updateWhat = "Room_no";
 		else if(i==2)	updateWhat = "Benefit";
@@ -104,11 +104,11 @@ public class DSManagement extends GetConnection {
 	}
 
 	//search one student
-	public AllStudentData selectOneStudent(String name) {  
+	public StudentData selectOneStudent(String name) {  
 		String sql = "select * from Dormitory_Student_List where "+idorname+" = ?";
 		PreparedStatement pstmt = null;
 		ResultSet result = null;
-		AllStudentData student = null;   
+		StudentData student = null;   
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -116,7 +116,7 @@ public class DSManagement extends GetConnection {
 			result = pstmt.executeQuery();
 
 			while(result.next()) {
-				student = new AllStudentData();
+				student = new StudentData();
 				student.setId(result.getInt("ID"));
 				student.setName(result.getString("Name"));
 				student.setGender(result.getString("Gender"));
@@ -153,6 +153,7 @@ public class DSManagement extends GetConnection {
 		} catch(Exception e){
 			System.out.println("Error" + e);
 		}
-	} 
+	}
+
 
 }

@@ -2,12 +2,12 @@ package com.tistory.musit.student;
 
 import java.util.Scanner;
 
-public class DSoptions {
+public class DormStudentOptions implements Options {
 	
 	TextUI tui = new TextUI();
-	AllStudentData student = new AllStudentData();
+	StudentData student = new StudentData();
 	Scanner USERINPUT = new Scanner(System.in);
-	DSManagement stm = new DSManagement();
+	DormStudentManangement stm = new DormStudentManangement();
 	
 	public void opt1SetStudent() {
 		
@@ -27,8 +27,8 @@ public class DSoptions {
 		System.out.println("Penalty Score: ");
 		student.setPenalty(USERINPUT.nextInt());
 		USERINPUT.nextLine();
-		stm.insertStudent(student);
 		
+		stm.insertStudent(student);
 		System.out.println("Sucessfully insterted student");
 	}
 	
@@ -76,8 +76,6 @@ public class DSoptions {
 				}
 				USERINPUT.nextLine();
 				stm.updateStudent(student, i);
-
-				
 			} catch(Exception e) {
 				System.out.println("student ID " + id +"does not exist");
 			}
@@ -130,8 +128,11 @@ public class DSoptions {
 			System.out.println("Sort by (1) ID (2) Name (3) Gender "
 					+ "(4) Room Number (5) Benefit Score (6) Penalty Score or"
 					+ " (7) Default. Input number: ");
-			
 			int userInput = USERINPUT.nextInt();
+			
+			switch(userInput) {
+			case 1:
+			}
 			if(userInput == 1)	stm.sortBy("ID");
 			else if(userInput == 2)	stm.sortBy("Name");
 			else if(userInput == 3) stm.sortBy("Gender");

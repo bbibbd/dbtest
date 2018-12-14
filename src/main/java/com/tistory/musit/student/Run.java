@@ -3,9 +3,9 @@ import java.util.Scanner;
 
 public class Run {
 	
-	Options options = new Options();
+	AllStudentOptions options = new AllStudentOptions();
 	TextUI tui = new TextUI();
-	DSoptions dsOptions = new DSoptions();
+	DormStudentOptions dsOptions = new DormStudentOptions();
 	Scanner USERINPUT = new Scanner(System.in);
 	
 	public void runAllStudent() {

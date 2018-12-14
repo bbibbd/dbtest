@@ -1,6 +1,6 @@
 package com.tistory.musit.student;
 
-public class AllStudentData {
+public class StudentData {
 
 	private int id;
 	private String name;

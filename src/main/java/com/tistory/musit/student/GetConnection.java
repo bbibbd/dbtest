@@ -5,6 +5,8 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import javax.swing.table.DefaultTableModel;
+
 public class GetConnection {
 
 	Statement stmt = null;
@@ -12,7 +14,11 @@ public class GetConnection {
 	protected String filterBy = "";
 	protected String sorting = null;
 	protected String idorname = null;
+     
+
+	protected String colNames[] = {"ID","Name","Gender","Major","Paid"};  // 테이블 컬럼 값들
 	
+	public DefaultTableModel model = new DefaultTableModel(colNames, 0); //  테이블 데이터 모델 객체 생성
 	protected Connection conn;
 	private final static String URL = "jdbc:mysql://104.155.151.3/test";	//host url
 	private final static String ID = "root";	//ID
