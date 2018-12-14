@@ -18,7 +18,6 @@ public class AllStudentDataManagement extends GetConnection implements StudentDa
 			pstmt.setString(3, student.getGender());
 			pstmt.setString(4, student.getMajor());
 			pstmt.setString(5, student.getPaid());
-
 			pstmt.executeUpdate();	//update to the server
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -133,7 +132,7 @@ public class AllStudentDataManagement extends GetConnection implements StudentDa
 	}
 
 	//print all student information in the database
-	public void selectALLStudents() { 
+	public void printAllStudents() { 
 		String sql = "select * from STUDENTINFO "
 				+filterBy+" order by "+sorting;
 		try {

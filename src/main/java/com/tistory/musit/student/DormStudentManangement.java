@@ -132,7 +132,7 @@ public class DormStudentManangement extends GetConnection implements StudentData
 	}
 
 	//Show all student data
-	public void selectALLStudents() { 
+	public void printAllStudents() { 
 		String sql = "select * from Dormitory_Student_List "+filterBy+" order by "+sorting;
 		
 		try {

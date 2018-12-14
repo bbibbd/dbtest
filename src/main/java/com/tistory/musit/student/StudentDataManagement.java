@@ -6,6 +6,6 @@ public interface StudentDataManagement {
 	public void deleteStudent(int studentID);
 	public void updateStudent(StudentData student, int i);
 	public StudentData selectOneStudent(String idOrName);
-	public void selectALLStudents();
+	public void printAllStudents();
 	
 }

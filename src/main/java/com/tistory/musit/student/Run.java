@@ -23,7 +23,7 @@ public class Run {
 			else if(option == 4) 
 				options.opt4SelectOneSutdent();
 			else if(option == 5)
-				options.opt5SelectAllStudents();
+				options.opt5PrintAllStudents();
 			else if(option == 6)
 				options.opt6SortingBy();
 			else if(option == 7)
@@ -56,7 +56,7 @@ public class Run {
 			else if(option == 4) 
 				dsOptions.opt4SelectOneSutdent();
 			else if(option == 5)
-				dsOptions.opt5SelectAllStudents();
+				dsOptions.opt5PrintAllStudents();
 			else if(option == 6)
 				dsOptions.opt6SortingBy();
 			else if(option == 7)

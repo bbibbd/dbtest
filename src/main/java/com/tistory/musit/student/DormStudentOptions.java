@@ -117,10 +117,10 @@ public class DormStudentOptions implements Options {
 		}
 
 		//option 5 - print all the student information
-		public void opt5SelectAllStudents(){
+		public void opt5PrintAllStudents(){
 			System.out.println("------------------------------------"
 					+ "----------------------------------------------------------");
-			stm.selectALLStudents();
+			stm.printAllStudents();
 		}
 		
 		//option 6 - Sorting
