@@ -9,19 +9,25 @@ public class Main {
 		Scanner USERINPUT = new Scanner(System.in);
 		Run run = new Run();
 		
-		for(;;) {
+		int option;
+		do {
 			tui.printFrontPage();
 			System.out.println("Select option: ");
-			int option = USERINPUT.nextInt();
+			option = USERINPUT.nextInt();
+			USERINPUT.nextLine();
 			
-			if(option == 1)		run.runAllStudent();
-			else if(option == 2)	run.runDormitoryStudent();
-			else if(option == 3) {
+			switch(option) {
+			case 1:	run.runAllStudent(); break;
+			case 2: run.runDormitoryStudent(); break;
+			case 3:
 				System.out.println("Exit now. Hava a nice day!");
 				break;
+			default:	
+				System.out.println("input valid value");
+				break;	
 			}
-			else	System.out.println("input valid value");
-		}
+		}while(option != 3);
 		USERINPUT.close();
+		System.exit(0);
 	}
 }
