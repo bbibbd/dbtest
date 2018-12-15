@@ -5,8 +5,6 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import javax.swing.table.DefaultTableModel;
-
 public class GetConnection {
 
 	Statement stmt = null;
@@ -15,23 +13,23 @@ public class GetConnection {
 	protected String sorting = null;
 	protected String idorname = null;
      
-
-	protected String colNames[] = {"ID","Name","Gender","Major","Paid"};  // 테이블 컬럼 값들
-	
-	public DefaultTableModel model = new DefaultTableModel(colNames, 0); //  테이블 데이터 모델 객체 생성
 	protected Connection conn;
+	private final static String DRIVER = "com.mysql.cj.jdbc.Driver";
 	private final static String URL = "jdbc:mysql://104.155.151.3/test";	//host url
 	private final static String ID = "root";	//ID
 	private final static String PW = "root";	//PW
-
-	//connect to the server when instantiate this class
+	
 	public GetConnection() {	
 		try {
+			Class.forName(DRIVER);
 			conn = DriverManager.getConnection(URL,ID,PW);	//connect to server
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} catch (Exception e) {
+			System.out.println("An error occured while loading driver: "+e);
 		}
+		
 	}
 	
 	//setter of filterBy variable
